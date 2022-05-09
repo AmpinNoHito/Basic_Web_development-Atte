@@ -61,7 +61,6 @@ export default {
     const range = 7;
     const data = res.data.data;
     const sizeCheck = (data.last_page >= range + 4) ? true : false;
-    console.log(data);
     return {
       works: data.data,
       range: range,
@@ -86,7 +85,6 @@ export default {
     async getWorks() {
       const res = await this.$axios.get(`/api/work/index/${this.date}?page=${this.currentPage}`);
       this.works = res.data.data.data;
-      console.log(this.works);
     },
     toNextDate() {
       const dt = new Date(this.date);
@@ -97,7 +95,6 @@ export default {
     toLastDate() {
       const dt = new Date(this.date);
       dt.setDate(dt.getDate() - 1);
-      console.log(dt);
       const param = this.formatDate(dt, 'Y-n-j');
       this.$router.push(`/attendance/${param}`);
     },

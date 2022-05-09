@@ -18,7 +18,7 @@ use App\Http\Controllers\RestController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return Auth::user();
+    return Auth::user()->load('works.rests');
 });
 
 Route::post('/auth/register', [AuthController::class, 'register']);

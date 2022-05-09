@@ -58,9 +58,10 @@ export default {
         const res = await this.$axios.post('api/auth/login', sendData);
         alert(res.data.message);
         await this.$store.commit('auth/setAuthUser', res.data.userInfo);
-        if (res.status === 200) {
-          this.$router.push('/');
-        }
+        const resp = await this.$axios.get('/api/user');
+        const authUser =  resp.data;
+        await this.$store.commit('register/setByUserInfo', authUser);
+        this.$router.push('/');
       } catch (error) {
         const errors = error.response.data.errors;
         this.errors['email'] = (errors.email) ? errors.email : '';
