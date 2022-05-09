@@ -86,9 +86,13 @@ export default {
         this.$router.push('/login');
       } catch (error) {
         const errors = error.response.data.errors;
-        this.errors['name'] = (errors.name) ? errors.name : '';
-        this.errors['email'] = (errors.email) ? errors.email : '';
-        this.errors['password'] = (errors.password) ? errors.password : '';
+        const errorMessage = error.response.data.message;
+        if (errors) {
+          this.errors['name'] = (errors.name) ? errors.name : '';
+          this.errors['email'] = (errors.email) ? errors.email : '';
+          this.errors['password'] = (errors.password) ? errors.password : '';
+        }
+        alert(errorMessage);
       }
     },
   },

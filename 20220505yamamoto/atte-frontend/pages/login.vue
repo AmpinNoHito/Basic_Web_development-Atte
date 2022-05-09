@@ -64,8 +64,12 @@ export default {
         this.$router.push('/');
       } catch (error) {
         const errors = error.response.data.errors;
-        this.errors['email'] = (errors.email) ? errors.email : '';
-        this.errors['password'] = (errors.password) ? errors.password : '';
+        const errorMessage = error.response.data.message;
+        if (errors) {
+          this.errors['email'] = (errors.email) ? errors.email : '';
+          this.errors['password'] = (errors.password) ? errors.password : '';
+        }
+        alert(errorMessage);
       }
     },
   },

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class LoginRequest extends FormRequest
 {
@@ -39,5 +41,14 @@ class LoginRequest extends FormRequest
             'password.min' => 'パスワードは8文字以上で入力してください。',
             'password.max' => 'パスワードは191文字以内で入力してください。',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $data = [
+            'message' => __('入力されたデータが不正です。'),
+            'errors' => $validator->errors()->toArray(),
+        ];
+        throw new HttpResponseException(response()->json($data, 422));
     }
 }
